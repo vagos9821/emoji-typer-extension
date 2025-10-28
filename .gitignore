@@ -1,0 +1,34 @@
+# OS and Editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Build outputs (if you add build tools later)
+dist/
+build/
+*.zip
+
+# Chrome extension temporary files
+*.crx
+*.pem
+
+# Node modules (if you add npm later)
+node_modules/
+
+# Personal notes
+TODO.md
+NOTES.md

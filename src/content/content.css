@@ -1,0 +1,78 @@
+/* Autocomplete dropdown styles */
+.emoji-autocomplete {
+  position: absolute;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10000;
+  min-width: 200px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.emoji-suggestion {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  gap: 10px;
+}
+
+.emoji-suggestion:hover,
+.emoji-suggestion.selected {
+  background: #f0f0f0;
+}
+
+.emoji-suggestion.selected {
+  background: #e3e8ff;
+}
+
+.emoji-char {
+  font-size: 20px;
+  min-width: 24px;
+  text-align: center;
+}
+
+.emoji-name {
+  font-size: 14px;
+  color: #666;
+  font-family: 'Courier New', monospace;
+}
+
+/* Scrollbar styling for autocomplete */
+.emoji-autocomplete::-webkit-scrollbar {
+  width: 8px;
+}
+
+.emoji-autocomplete::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 0 8px 8px 0;
+}
+
+.emoji-autocomplete::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.emoji-autocomplete::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+
+/* Animation for autocomplete appearance */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.emoji-autocomplete {
+  animation: slideDown 0.2s ease-out;
+}

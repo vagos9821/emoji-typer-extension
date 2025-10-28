@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emoji Typer Options</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            padding: 32px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 32px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+        }
+
+        .section h2 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .description {
+            color: #666;
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .custom-emoji-form {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .custom-emoji-form input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .custom-emoji-form input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .custom-emoji-form input::placeholder {
+            color: #999;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-danger {
+            background: #ff4757;
+            color: white;
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .btn-danger:hover {
+            background: #ee5a6f;
+        }
+
+        .custom-emoji-list {
+            display: grid;
+            gap: 8px;
+        }
+
+        .custom-emoji-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .custom-emoji-item:hover {
+            background: #e9ecef;
+        }
+
+        .emoji-display {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .emoji-char {
+            font-size: 24px;
+        }
+
+        .emoji-code {
+            font-family: 'Courier New', monospace;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        .examples {
+            background: #f8f9fa;
+            padding: 16px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+        }
+
+        .examples h3 {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .examples ul {
+            list-style: none;
+        }
+
+        .examples li {
+            padding: 4px 0;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .examples code {
+            background: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #667eea;
+            font-family: 'Courier New', monospace;
+        }
+
+        .message {
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .footer {
+            padding: 24px 32px;
+            background: #f8f9fa;
+            border-top: 1px solid #e0e0e0;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚙️ Emoji Typer Settings</h1>
+            <p>Customize your emoji typing experience</p>
+        </div>
+
+        <div class="content">
+            <div id="message" class="message"></div>
+
+            <div class="section">
+                <h2>📊 Statistics</h2>
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalEmojis">0</div>
+                        <div class="stat-label">Total Emojis</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="customEmojis">0</div>
+                        <div class="stat-label">Custom Emojis</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>➕ Add Custom Emoji</h2>
+                <p class="description">
+                    Create your own custom emoji shortcuts. Perfect for adding branded emojis, special characters, or
+                    frequently used text snippets.
+                </p>
+
+                <div class="examples">
+                    <h3>💡 Examples:</h3>
+                    <ul>
+                        <li><code>:shrug</code> → ¯\_(ツ)_/¯</li>
+                        <li><code>:tm</code> → ™</li>
+                        <li><code>:email</code> → your@email.com</li>
+                        <li><code>:company</code> → 🏢 Company Name</li>
+                    </ul>
+                </div>
+
+                <div class="custom-emoji-form">
+                    <input type="text" id="emojiName" placeholder="Shortcode (e.g., shrug)" autocomplete="off">
+                    <input type="text" id="emojiValue" placeholder="Emoji or text (e.g., ¯\_(ツ)_/¯)" autocomplete="off">
+                    <button class="btn btn-primary" id="addEmoji">Add Emoji</button>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📝 Your Custom Emojis</h2>
+                <div id="customEmojiList" class="custom-emoji-list">
+                    <div class="empty-state">
+                        No custom emojis yet. Add one above to get started!
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>ℹ️ How to Use</h2>
+                <p class="description">
+                    Type a colon <code>:</code> followed by an emoji name in any text field. An autocomplete dropdown
+                    will appear showing matching emojis. Use the arrow keys to navigate and press Enter or Tab to insert
+                    the emoji.
+                </p>
+                <div class="examples">
+                    <h3>Examples:</h3>
+                    <ul>
+                        <li>Type <code>:heart</code> to get ❤️</li>
+                        <li>Type <code>:smile</code> to get 😄</li>
+                        <li>Type <code>:fire</code> to get 🔥</li>
+                        <li>Click the extension icon to browse all emojis</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            Emoji Typer Extension • Made with ❤️ • Type <code>:</code> anywhere to start
+        </div>
+    </div>
+
+    <script src="../content/emojiData.js"></script>
+    <script src="options.js"></script>
+</body>
+
+</html>
