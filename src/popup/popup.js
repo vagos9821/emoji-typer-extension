@@ -96,6 +96,16 @@ function renderEmojis() {
   emojisToRender.forEach(({ name, emoji }) => {
     const div = document.createElement('div');
     div.className = 'emoji-item';
+
+    // Detect wide content (multi-character text, not emojis)
+    const charCount = countVisibleCharacters(emoji);
+
+    if (charCount > 8) {
+      div.classList.add('extra-wide');
+    } else if (charCount > 3) {
+      div.classList.add('wide');
+    }
+
     div.textContent = emoji;
     div.title = `:${name}`;
 
@@ -105,6 +115,33 @@ function renderEmojis() {
 
     grid.appendChild(div);
   });
+}
+
+// Helper function to count actual visible characters
+function countVisibleCharacters(text) {
+  // Use Array.from to properly handle multi-byte characters (emojis, etc.)
+  // This counts grapheme clusters more accurately
+  const characters = Array.from(text);
+
+  // Count how many are NOT emoji/special Unicode characters
+  let visibleAsciiCount = 0;
+
+  for (const char of characters) {
+    const code = char.codePointAt(0);
+    // Check if it's a regular ASCII printable character (not emoji)
+    if (code < 0x1F300 || (code >= 0x0020 && code <= 0x007E)) {
+      visibleAsciiCount++;
+    }
+  }
+
+  // If mostly ASCII characters, it's likely text/ASCII art
+  // Otherwise, it's likely a single emoji (even if multi-byte)
+  if (visibleAsciiCount > 2) {
+    return visibleAsciiCount; // Return ASCII count for text
+  }
+
+  // For emojis, return 1 regardless of byte length
+  return 1;
 }
 
 // Filter emojis by search query
@@ -143,6 +180,16 @@ function filterEmojis(query) {
   matches.forEach(({ name, emoji }) => {
     const div = document.createElement('div');
     div.className = 'emoji-item';
+
+    // Detect wide content (multi-character text, not emojis)
+    const charCount = countVisibleCharacters(emoji);
+
+    if (charCount > 8) {
+      div.classList.add('extra-wide');
+    } else if (charCount > 3) {
+      div.classList.add('wide');
+    }
+
     div.textContent = emoji;
     div.title = `:${name}`;
 

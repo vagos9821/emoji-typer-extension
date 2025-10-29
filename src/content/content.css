@@ -1,3 +1,32 @@
+/* Font declarations */
+@font-face {
+  font-family: 'SupremeLL';
+  src: url('../../fonts/supremeLL/SupremeLL-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SupremeLL';
+  src: url('../../fonts/supremeLL/SupremeLL-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SupremeLL';
+  src: url('../../fonts/supremeLL/SupremeLL-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SupremeLL';
+  src: url('../../fonts/supremeLL/SupremeLL-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
 /* Autocomplete dropdown styles */
 .emoji-autocomplete {
   position: absolute;
@@ -9,7 +38,8 @@
   overflow-y: auto;
   z-index: 10000;
   min-width: 200px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  max-width: 400px;
+  font-family: 'SupremeLL', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
 .emoji-suggestion {
@@ -19,6 +49,7 @@
   cursor: pointer;
   transition: background-color 0.2s;
   gap: 10px;
+  overflow: hidden;
 }
 
 .emoji-suggestion:hover,
@@ -33,13 +64,29 @@
 .emoji-char {
   font-size: 20px;
   min-width: 24px;
+  max-width: 200px;
   text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* For wide custom emojis (like ASCII art), use smaller font */
+.emoji-char.wide {
+  font-size: 14px;
+  min-width: 80px;
+  max-width: 200px;
 }
 
 .emoji-name {
   font-size: 14px;
   color: #666;
   font-family: 'Courier New', monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 1;
 }
 
 /* Scrollbar styling for autocomplete */

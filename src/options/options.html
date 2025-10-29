@@ -6,6 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emoji Typer Options</title>
     <style>
+        @font-face {
+            font-family: 'SupremeLL';
+            src: url('../../fonts/supremeLL/SupremeLL-Regular.otf') format('opentype');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'SupremeLL';
+            src: url('../../fonts/supremeLL/SupremeLL-Bold.otf') format('opentype');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'SupremeLL';
+            src: url('../../fonts/supremeLL/SupremeLL-Light.otf') format('opentype');
+            font-weight: 300;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'SupremeLL';
+            src: url('../../fonts/supremeLL/SupremeLL-Medium.otf') format('opentype');
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        :root {
+            /* 🎨 Nordic Frost Color Palette */
+            --color-bg: #1A1D27;
+            --color-primary: #2E3440;
+            --color-secondary: #3B4252;
+            --color-accent: #88C0D0;
+            --color-accent-hover: #5E81AC;
+            --color-text: #ECEFF4;
+            --color-muted: #D8DEE9;
+            --shadow-color: rgba(0, 0, 0, 0.4);
+            --surface: #2E3440;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,24 +54,28 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #f5f5f5;
+            font-family: 'SupremeLL', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
             padding: 40px 20px;
+            line-height: 1.6;
         }
 
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background: white;
+            background: var(--color-primary);
             border-radius: 12px;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 32px var(--shadow-color);
             overflow: hidden;
+            border: 1px solid var(--color-secondary);
         }
 
         .header {
             padding: 32px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: var(--color-primary);
+            color: var(--color-text);
+            border-bottom: 1px solid var(--color-secondary);
         }
 
         .header h1 {
@@ -41,11 +86,12 @@
 
         .header p {
             font-size: 16px;
-            opacity: 0.9;
+            color: var(--color-muted);
         }
 
         .content {
             padding: 32px;
+            background: var(--color-bg);
         }
 
         .section {
@@ -54,16 +100,17 @@
 
         .section h2 {
             font-size: 20px;
-            color: #333;
+            color: var(--color-text);
             margin-bottom: 16px;
             padding-bottom: 8px;
-            border-bottom: 2px solid #667eea;
+            border-bottom: 2px solid var(--color-secondary);
+            font-weight: 600;
         }
 
         .description {
-            color: #666;
+            color: var(--color-muted);
             margin-bottom: 16px;
-            line-height: 1.6;
+            font-size: 14px;
         }
 
         .custom-emoji-form {
@@ -75,19 +122,25 @@
         .custom-emoji-form input {
             flex: 1;
             padding: 12px;
-            border: 2px solid #e0e0e0;
+            border: 2px solid var(--color-secondary);
             border-radius: 6px;
             font-size: 14px;
-            transition: border-color 0.2s;
+            background: var(--color-primary);
+            color: var(--color-text);
+            transition: all 0.2s ease;
+            font-family: inherit;
         }
 
         .custom-emoji-form input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: var(--color-accent);
+            background: var(--color-secondary);
+            box-shadow: 0 0 0 3px rgba(136, 192, 208, 0.1);
         }
 
         .custom-emoji-form input::placeholder {
-            color: #999;
+            color: var(--color-muted);
+            opacity: 0.7;
         }
 
         .btn {
@@ -97,29 +150,32 @@
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
+            font-family: inherit;
         }
 
         .btn-primary {
-            background: #667eea;
-            color: white;
+            background: var(--color-accent);
+            color: var(--color-primary);
         }
 
         .btn-primary:hover {
-            background: #5568d3;
+            background: var(--color-accent-hover);
+            color: var(--color-text);
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 4px 12px rgba(94, 129, 172, 0.3);
         }
 
         .btn-danger {
-            background: #ff4757;
-            color: white;
+            background: var(--color-secondary);
+            color: var(--color-text);
             padding: 6px 12px;
             font-size: 12px;
         }
 
         .btn-danger:hover {
-            background: #ee5a6f;
+            background: #4C566A;
+            transform: translateY(-1px);
         }
 
         .custom-emoji-list {
@@ -132,13 +188,16 @@
             align-items: center;
             justify-content: space-between;
             padding: 12px 16px;
-            background: #f8f9fa;
+            background: var(--color-primary);
+            border: 1px solid var(--color-secondary);
             border-radius: 6px;
-            transition: background 0.2s;
+            transition: all 0.2s ease;
         }
 
         .custom-emoji-item:hover {
-            background: #e9ecef;
+            background: var(--color-secondary);
+            border-color: var(--color-accent);
+            transform: translateY(-1px);
         }
 
         .emoji-display {
@@ -153,27 +212,34 @@
 
         .emoji-code {
             font-family: 'Courier New', monospace;
-            color: #667eea;
+            color: var(--color-accent);
             font-weight: 600;
+            background: var(--color-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 13px;
         }
 
         .empty-state {
             text-align: center;
             padding: 40px;
-            color: #999;
+            color: var(--color-muted);
+            font-style: italic;
         }
 
         .examples {
-            background: #f8f9fa;
+            background: var(--color-primary);
             padding: 16px;
             border-radius: 6px;
             margin-bottom: 16px;
+            border: 1px solid var(--color-secondary);
         }
 
         .examples h3 {
             font-size: 14px;
-            color: #666;
+            color: var(--color-accent);
             margin-bottom: 8px;
+            font-weight: 600;
         }
 
         .examples ul {
@@ -182,16 +248,18 @@
 
         .examples li {
             padding: 4px 0;
-            color: #666;
+            color: var(--color-muted);
             font-size: 14px;
         }
 
         .examples code {
-            background: white;
+            background: var(--color-bg);
             padding: 2px 6px;
             border-radius: 3px;
-            color: #667eea;
+            color: var(--color-accent);
             font-family: 'Courier New', monospace;
+            font-weight: 600;
+            border: 1px solid var(--color-secondary);
         }
 
         .message {
@@ -199,19 +267,20 @@
             border-radius: 6px;
             margin-bottom: 16px;
             display: none;
-            animation: fadeIn 0.3s;
+            animation: fadeIn 0.3s ease;
+            border: 1px solid;
         }
 
         .message.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+            background: rgba(136, 192, 208, 0.1);
+            color: var(--color-accent);
+            border-color: var(--color-accent);
         }
 
         .message.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            background: rgba(78, 86, 106, 0.2);
+            color: #BF616A;
+            border-color: #BF616A;
         }
 
         @keyframes fadeIn {
@@ -228,10 +297,10 @@
 
         .footer {
             padding: 24px 32px;
-            background: #f8f9fa;
-            border-top: 1px solid #e0e0e0;
+            background: var(--color-primary);
+            border-top: 1px solid var(--color-secondary);
             text-align: center;
-            color: #666;
+            color: var(--color-muted);
             font-size: 14px;
         }
 
@@ -243,22 +312,52 @@
         }
 
         .stat-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: var(--color-secondary);
+            color: var(--color-text);
             padding: 20px;
             border-radius: 8px;
             text-align: center;
+            border: 1px solid var(--color-accent);
+            transition: transform 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
         }
 
         .stat-number {
             font-size: 36px;
             font-weight: 700;
             margin-bottom: 4px;
+            color: var(--color-accent);
         }
 
         .stat-label {
             font-size: 14px;
-            opacity: 0.9;
+            color: var(--color-muted);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 12px;
+            }
+
+            .header {
+                padding: 24px 20px;
+            }
+
+            .content {
+                padding: 24px 20px;
+            }
+
+            .custom-emoji-form {
+                flex-direction: column;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>

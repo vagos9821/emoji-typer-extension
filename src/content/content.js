@@ -7,6 +7,32 @@ let selectedIndex = -1;
 let suggestions = [];
 let justInsertedEmoji = false; // Flag to prevent interference after insertion
 
+// Helper function to count actual visible characters
+function countVisibleCharacters(text) {
+  // Use Array.from to properly handle multi-byte characters (emojis, etc.)
+  const characters = Array.from(text);
+
+  // Count how many are NOT emoji/special Unicode characters
+  let visibleAsciiCount = 0;
+
+  for (const char of characters) {
+    const code = char.codePointAt(0);
+    // Check if it's a regular ASCII printable character (not emoji)
+    if (code < 0x1F300 || (code >= 0x0020 && code <= 0x007E)) {
+      visibleAsciiCount++;
+    }
+  }
+
+  // If mostly ASCII characters, it's likely text/ASCII art
+  // Otherwise, it's likely a single emoji (even if multi-byte)
+  if (visibleAsciiCount > 2) {
+    return visibleAsciiCount; // Return ASCII count for text
+  }
+
+  // For emojis, return 1 regardless of byte length
+  return 1;
+}
+
 // Create autocomplete dropdown
 function createAutocomplete() {
   if (autocompleteDiv) return autocompleteDiv;
@@ -89,7 +115,24 @@ function showAutocomplete(target, query, matchText, matchPos) {
   suggestions.forEach((item, index) => {
     const div = document.createElement('div');
     div.className = 'emoji-suggestion';
-    div.innerHTML = `<span class="emoji-char">${item.emoji}</span><span class="emoji-name">:${item.name}</span>`;
+
+    const emojiSpan = document.createElement('span');
+    emojiSpan.className = 'emoji-char';
+
+    // Add 'wide' class for text-based custom emojis (not regular emojis)
+    const charCount = countVisibleCharacters(item.emoji);
+    if (charCount > 3) {
+      emojiSpan.classList.add('wide');
+    }
+
+    emojiSpan.textContent = item.emoji;
+
+    const nameSpan = document.createElement('span');
+    nameSpan.className = 'emoji-name';
+    nameSpan.textContent = `:${item.name}`;
+
+    div.appendChild(emojiSpan);
+    div.appendChild(nameSpan);
 
     div.addEventListener('mouseenter', () => {
       selectedIndex = index;
